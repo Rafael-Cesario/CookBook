@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  cookbook:
+    container_name: cookbook
+    image: postgres:12.17-alpine3.19
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=cookbook
+    ports:
+      - 9090:5432
+    expose:
+      - 9090
+    volumes:
+      - /__database__:/var/lib/postgresql/data
+
+volumes:
+  __database__:
