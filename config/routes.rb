@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   post 'user' => 'user#create'
   post 'authentication' => 'authentication#login'
+  resources 'list', only: ['create']
 end
