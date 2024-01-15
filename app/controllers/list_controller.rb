@@ -16,6 +16,15 @@ class ListController < ApplicationController
     render json: { lists:, total: lists.length }, status: :ok
   end
 
+  def update
+    list = List.find(params.require(:id))
+    list.title = params.require(:title)
+    list.save!
+    render json: list, status: :ok
+  rescue StandardError
+    render json: list.errors, status: :unprocessable_entity
+  end
+
   private
 
   def list_params
