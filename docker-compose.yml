@@ -13,7 +13,7 @@ services:
     expose:
       - 9090
     volumes:
-      - /__database__:/var/lib/postgresql/data
+      - ./__database__:/var/lib/postgresql/data
 
 volumes:
   __database__:
