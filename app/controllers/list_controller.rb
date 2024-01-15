@@ -2,7 +2,7 @@ class ListController < ApplicationController
   def create
     list = List.new(list_params)
     list.save!
-    render json: { list:, user: list.user }, status: :ok
+    render json: list, status: :ok
   rescue StandardError
     render json: list.errors, status: :unprocessable_entity
   end
