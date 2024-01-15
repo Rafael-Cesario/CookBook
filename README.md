@@ -1,24 +1,12 @@
-# README
+# Cookbook API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### How to run the project
+* bundle install
+* docker compose up
+* rails db:create
+* rails db:migrate
+* rails s
 
-Things you may want to cover:
+#### Insomnia file
+I left a insomina file "insomnia_cookbook_collection.json", you can use this file inside insomnia to import all endpoints.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
