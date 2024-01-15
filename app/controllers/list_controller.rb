@@ -1,7 +1,3 @@
-# Todo
-# update
-# delete
-
 class ListController < ApplicationController
   def create
     list = List.new(list_params)
@@ -23,6 +19,14 @@ class ListController < ApplicationController
     render json: list, status: :ok
   rescue StandardError
     render json: list.errors, status: :unprocessable_entity
+  end
+
+  def destroy
+    list = List.find(params.require(:id))
+    list.destroy
+    render json: { message: "Sucess: List #{list.title} was removed." }, status: :ok
+  rescue StandardError
+    render json: { errors: ['notFound: List not found'] }, status: :unprocessable_entity
   end
 
   private
