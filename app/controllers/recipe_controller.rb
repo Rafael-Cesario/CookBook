@@ -7,6 +7,11 @@ class RecipeController < ApplicationController
     render json: recipe.errors, status: :unprocessable_entity
   end
 
+  def index
+    recipes = Recipe.where(list_id: params.require(:list_id))
+    render json: { recipes:, total: recipes.length }, status: :ok
+  end
+
   private
 
   def recipe_params
