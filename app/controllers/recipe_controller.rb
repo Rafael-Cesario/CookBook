@@ -12,6 +12,21 @@ class RecipeController < ApplicationController
     render json: { recipes:, total: recipes.length }, status: :ok
   end
 
+  def update
+    recipe = Recipe.find(params.require(:id))
+
+    recipe.update!(
+      title: params[:title],
+      ingredients: params[:ingredients],
+      instructions: params[:instructions],
+      cooking_time: params[:cooking_time]
+    )
+
+    render json: recipe, status: :ok
+  rescue StandardError
+    render json: recipe.errors, status: :unprocessable_entity
+  end
+
   private
 
   def recipe_params
