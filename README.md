@@ -1,5 +1,8 @@
 # Cookbook API
 
+![cookbook](https://github.com/Rafael-Cesario/Cookbook-Rails/assets/88716893/ff8c73a4-7f7b-48a9-84d3-02cbb31db101)
+
+
 #### How to run the project
 * bundle install
 * docker compose up
