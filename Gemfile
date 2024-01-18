@@ -46,6 +46,5 @@ end
 gem "bcrypt", "~> 3.1"
 gem "jwt", "~> 2.7"
 
-gem "ruby-lsp", "~> 0.13.4"
 
 gem "rubocop", "~> 1.60"
