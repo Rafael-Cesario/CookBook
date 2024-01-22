@@ -48,3 +48,5 @@ gem "jwt", "~> 2.7"
 
 
 gem "rubocop", "~> 1.60"
+
+gem "ruby-lsp", "~> 0.13.4"

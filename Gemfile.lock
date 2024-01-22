@@ -138,6 +138,7 @@ GEM
       racc
     pg (1.5.4)
     pg (1.5.4-x64-mingw-ucrt)
+    prism (0.19.0)
     psych (5.1.2)
       stringio
     puma (6.4.2)
@@ -218,8 +219,13 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
+    ruby-lsp (0.13.4)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 0.19.0, < 0.20)
+      sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    sorbet-runtime (0.5.11214)
     stringio (3.1.0)
     thor (1.3.0)
     timeout (0.4.1)
@@ -249,6 +255,7 @@ DEPENDENCIES
   rails (~> 7.1.2)
   rspec-rails (~> 6.1)
   rubocop (~> 1.60)
+  ruby-lsp (~> 0.13.4)
   tzinfo-data
 
 RUBY VERSION
