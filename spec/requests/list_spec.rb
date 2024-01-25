@@ -19,4 +19,19 @@ RSpec.describe 'Lists', type: :request do
       expect(json).to include('id', 'user_id', 'title')
     end
   end
+
+  describe 'GET /index' do
+    it 'Return all lists' do
+      List.create(user_id: user[:id], title: "list01")
+      get "/list?user_id=#{user[:id]}"
+      expect(json['total']).to eq(1)
+      expect(json['lists'].length).to be(1)
+    end
+
+    it 'Returns a empty array' do
+      get "/list?user_id=#{user[:id]}"
+      expect(json['total']).to eq(0)
+      expect(json['lists'].length).to be(0)
+    end
+  end
 end
