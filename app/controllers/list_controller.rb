@@ -2,9 +2,9 @@ class ListController < ApplicationController
   def create
     list = List.new(list_params)
     list.save!
-    render json: list.as_json(except: [:created_at, :updated_at]), status: :ok
+    render json: list.as_json(except: %i[created_at updated_at]), status: :ok
   rescue StandardError
-    render json: list.errors, status: :unprocessable_entity
+    render json: { errors: list.errors }, status: :unprocessable_entity
   end
 
   def index
@@ -18,7 +18,7 @@ class ListController < ApplicationController
     list.save!
     render json: list, status: :ok
   rescue StandardError
-    render json: list.errors, status: :unprocessable_entity
+    render json: { errors: list.errors }, status: :unprocessable_entity
   end
 
   def destroy
