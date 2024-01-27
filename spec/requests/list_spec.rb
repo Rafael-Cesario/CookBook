@@ -34,4 +34,8 @@ RSpec.describe 'Lists', type: :request do
       expect(json['lists'].length).to be(0)
     end
   end
+
+  describe 'PATCH /update' do
+    
+  end
 end
