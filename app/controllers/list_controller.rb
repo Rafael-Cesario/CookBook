@@ -23,6 +23,7 @@ class ListController < ApplicationController
 
     list.title = params.require(:title)
     list.save!
+
     render json: list, status: :ok
   rescue StandardError
     render json: { errors: list.errors }, status: :unprocessable_entity
@@ -43,6 +44,6 @@ class ListController < ApplicationController
   end
 
   def list_not_found
-    render json: { errors: ['notFound: A list with the current id was not found']}, status: :not_found
+    render json: { errors: ['notFound: A list with the current id was not found'] }, status: :not_found
   end
 end
