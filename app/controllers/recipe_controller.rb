@@ -4,7 +4,7 @@ class RecipeController < ApplicationController
     recipe.save!
     render json: recipe, status: :created
   rescue StandardError
-    render json: recipe.errors, status: :unprocessable_entity
+    render json: { errors: recipe.errors }, status: :unprocessable_entity
   end
 
   def index
@@ -24,7 +24,7 @@ class RecipeController < ApplicationController
 
     render json: recipe, status: :ok
   rescue StandardError
-    render json: recipe.errors, status: :unprocessable_entity
+    render json: { errors: recipe.errors }, status: :unprocessable_entity
   end
 
   def destroy

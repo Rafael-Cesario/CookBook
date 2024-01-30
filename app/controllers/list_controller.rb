@@ -3,7 +3,6 @@ class ListController < ApplicationController
 
   rescue_from NotFoundError, with: :list_not_found
 
-
   def create
     list = List.new(list_params)
     list.save!
