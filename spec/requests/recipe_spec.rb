@@ -78,4 +78,25 @@ RSpec.describe 'Recipes', type: :request do
       expect(Recipe.find_by_id(recipe[:id])['title']).to eq(title)
     end
   end
+
+  describe 'DELETE /destroy' do
+    it 'Raises an error due to recipe not found' do
+      delete "/recipe/123"
+      expect(json['errors']).to eq(['notFound: Recipe id not found'])
+    end
+
+    it 'Delete a recipe' do
+      recipe = Recipe.create(
+        list_id: list[:id],
+        title: "Pudim",
+        ingredients: "Lorem",
+        instructions: "Lorem",
+        cooking_time: "40 minutes"
+      )
+
+      delete "/recipe/#{recipe[:id]}"
+      expect(json['message']).to include("Success: #{recipe.title} deleted with success.")
+      expect(Recipe.all.length).to be(0)
+    end
+  end
 end
