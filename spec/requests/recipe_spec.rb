@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Recipes', type: :request do
-  let(:user) { User.create(email: 'user01@email.com', name: 'user01', password: 'Password123') }
-  let(:list) { List.create(user_id: user[:id], title: 'List 01') }
-
-  recipeData = {
+  recipe_data = {
     title: 'Cake',
     ingredients: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu',
     instructions: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu.',
     cooking_time: '40 minutes'
   }
+
+  let(:user) { User.create(email: 'user01@email.com', name: 'user01', password: 'Password123') }
+  let(:list) { List.create(user_id: user[:id], title: 'List 01') }
+  let(:recipe) { Recipe.create(recipe_data.merge({ list_id: list[:id] }))}
 
   describe 'Post /create' do
     it 'Raises an error due to blank params' do
@@ -29,11 +30,11 @@ RSpec.describe 'Recipes', type: :request do
     end
 
     it 'Creates a new recipe' do
-      post '/recipe', params: { recipe: recipeData.merge({ list_id: list[:id] }) }
+      post '/recipe', params: { recipe: recipe_data.merge({ list_id: list[:id] }) }
       recipe = Recipe.first
 
-      expect(json).to include(recipeData.stringify_keys)
-      expect(recipe).to have_attributes(recipeData)
+      expect(json).to include(recipe_data.stringify_keys)
+      expect(recipe).to have_attributes(recipe_data)
     end
   end
 
@@ -51,11 +52,30 @@ RSpec.describe 'Recipes', type: :request do
     it 'Returns all the recipes' do
       total = 5
       total.times do |i|
-        Recipe.create(recipeData.merge({ title: "Recipe 0#{i}", list_id: list[:id] }))
+        Recipe.create(recipe_data.merge({ title: "Recipe 0#{i}", list_id: list[:id] }))
       end
 
       get "/recipe?list_id=#{list[:id]}"
       expect(json).to eq({ recipes: Recipe.all.as_json, total: }.stringify_keys)
+    end
+  end
+
+  describe 'PATCH /update' do
+    it 'Raises an error due to recipe not found' do
+      patch "/recipe/123"
+      expect(json['errors']).to include('notFound: Recipe was not found')
+    end
+
+    it 'Returns an error due to invalid parameters' do
+      patch "/recipe/#{recipe[:id]}", params: recipe_data.merge({title: ''})
+      expect(json['errors']).to include('title'=> include("can't be blank"))
+    end
+
+    it 'Update and save a recipe' do
+      title = 'Carrot cake'
+      patch "/recipe/#{recipe[:id]}", params: recipe_data.merge({title:})
+      expect(json['title']).to eq(title)
+      expect(Recipe.find_by_id(recipe[:id])['title']).to eq(title)
     end
   end
 end

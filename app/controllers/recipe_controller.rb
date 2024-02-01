@@ -1,4 +1,8 @@
 class RecipeController < ApplicationController
+  class NotFoundError < StandardError; end
+
+  rescue_from NotFoundError, with: :not_found_recipe
+
   def create
     recipe = Recipe.new(recipe_params)
     recipe.save!
@@ -13,7 +17,8 @@ class RecipeController < ApplicationController
   end
 
   def update
-    recipe = Recipe.find(params.require(:id))
+    recipe = Recipe.find_by_id(params.require(:id))
+    raise NotFoundError unless recipe
 
     recipe.update!(
       title: params[:title],
@@ -39,5 +44,9 @@ class RecipeController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:title, :ingredients, :list_id, :cooking_time, :instructions)
+  end
+
+  def not_found_recipe
+    render json: { errors: ['notFound: Recipe was not found'] }
   end
 end
