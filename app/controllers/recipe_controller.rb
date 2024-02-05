@@ -1,5 +1,6 @@
 class RecipeController < ApplicationController
   class NotFoundError < StandardError; end
+  before_action :authorize
 
   rescue_from NotFoundError, with: :not_found_recipe
 

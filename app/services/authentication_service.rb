@@ -7,4 +7,10 @@ class AuthenticationService
     exp_payload = { data: payload, exp: expires_in }
     JWT.encode exp_payload, HMAC_SECRET, ALGORITHM_HASH
   end
+
+  def self.verify_token(token)
+    JWT.decode token, HMAC_SECRET, true, { algorithm: ALGORITHM_HASH }
+  rescue JWT::InvalidIssuerError, JWT::DecodeError
+    [{ error: 'Invalid token' }]
+  end
 end

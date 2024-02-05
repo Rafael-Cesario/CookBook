@@ -1,5 +1,6 @@
 class ListController < ApplicationController
   class NotFoundError < StandardError; end
+  before_action :authorize
 
   rescue_from NotFoundError, with: :list_not_found
 
