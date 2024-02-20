@@ -47,3 +47,5 @@ end
 
 
 gem "dotenv-rails", "~> 3.0"
+
+gem "rspec-rails", "~> 6.1"
