@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  database:
+    container_name: cookbook
+    image: postgres:13.14-alpine3.19
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=cookbook
+    volumes:
+      - /PGDATA:/var/lib/postgresql/data
+    ports:
+      - 9090:5432
+
+volumes:
+  PGDATA:
