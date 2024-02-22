@@ -49,3 +49,5 @@ end
 gem "dotenv-rails", "~> 3.0"
 
 gem "rspec-rails", "~> 6.1"
+
+gem "jwt", "~> 2.8"
