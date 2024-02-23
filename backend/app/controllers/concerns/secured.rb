@@ -15,21 +15,30 @@ module Secured
   def authorize
     token = token_from_request
     valid_token = JsonWebToken.decode(token)
-    render json: INVALID_TOKEN, status: :unauthorized and return unless valid_token[:errors].empty?
+
+    return unless valid_token[0].has_key?(:error)
+    render json: INVALID_TOKEN, status: :unauthorized
   end
 
   def token_from_request
     authorization_header_elements = request.headers['Authorization']&.split
 
-    render json: REQUIRES_AUTHENTICATION, status: :unauthorized and return unless authorization_header_elements
+    unless authorization_header_elements
+      render json: REQUIRES_AUTHENTICATION, status: :unauthorized
+      return
+    end
 
     unless authorization_header_elements.length == 2
-      render json: MALFORMED_AUTHORIZATION_HEADER, status: :unauthorized and return
+      render json: MALFORMED_AUTHORIZATION_HEADER, status: :unauthorized
+      return
     end
 
     scheme, token = authorization_header_elements
 
-    render json: BAD_CREDENTIALS, status: :unauthorized and return unless scheme.downcase == 'bearer'
+    unless scheme.downcase == 'bearer'
+      render json: BAD_CREDENTIALS, status: :unauthorized
+      return
+    end
 
     token
   end

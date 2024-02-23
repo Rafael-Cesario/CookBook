@@ -9,10 +9,9 @@ module AuthenticationService
     end
 
     def self.decode(token)
-      decoded_token = JWT.decode token, SECRET, true, { algorithm: ALGORITHM }
-      { data: decoded_token[0], errors: [] }
-    rescue JWT::DecodeError
-      { data: "", errors: ["authorization: Invalid credentials"]}
+      JWT.decode token, SECRET, true, { algorithm: ALGORITHM }
+    rescue JWT::InvalidIssuerError, JWT::DecodeError
+      [{ error: 'Invalid token' }]
     end
   end
 end
