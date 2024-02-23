@@ -4,14 +4,7 @@ RSpec.describe 'Lists', type: :request do
   user_data = FakeDataHelper::FakeData.user
 
   let!(:user) { User.create(**user_data)}
-
-  let(:token) do
-    params = { authentication: { email: user_data[:email], password: user_data[:password] }}
-    post "/api/authentication", params: params
-    json["token"]
-  end
-
-  def headers() = { "Authorization" => "Bearer #{token}" }
+  let(:headers) { authorization_header(user_data) }
 
   describe 'Create' do
     it 'Validates presence of fields' do

@@ -37,6 +37,9 @@ RSpec.configure do |config|
   require_relative "support/fake_data"
   config.include FakeDataHelper
 
+  require_relative "support/header"
+  config.include HeaderHelper
+
 
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
