@@ -1,4 +1,6 @@
 class Api::ListController < ApplicationController
+  before_action :authorize
+
   def create
     list = List.new(list_params)
     list.save!
