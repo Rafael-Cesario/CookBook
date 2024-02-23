@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Lists', type: :request do
   user_data = FakeDataHelper::FakeData.user
+  list_data = FakeDataHelper::FakeData.list
 
-  let!(:user) { User.create(**user_data)}
+  let!(:user) { User.create user_data }
   let(:headers) { authorization_header(user_data) }
 
   describe 'Create' do
@@ -33,26 +34,49 @@ RSpec.describe 'Lists', type: :request do
     end
   end
 
-  describe 'Authorization header' do
+  describe 'Get' do
+    it 'Returns an empty array when there is not lists created' do
+      get "/api/list?user_id=#{user[:id]}", headers: headers
+      expect(json.symbolize_keys).to eq({ lists: [], total: 0 })
+    end
+
+    it 'Returns all the lists' do
+      list = List.create list_data.merge({ user_id: user[:id] })
+      get "/api/list?user_id=#{user[:id]}", headers: headers
+      expect(json.symbolize_keys).to eq({ lists: [list.as_json], total: 1 })
+    end
+  end
+
+  describe 'Authorization routes' do
+    methods = %w[post get]
+    invalid_token = Faker::Lorem.characters(number: 100)
+
     it 'Raises an error due to empty authorization header' do
-      post "/api/list"
-      expect(json).to eq({ "message" => "Requires authentication" })
+      methods.each do |method|
+        send(method, "/api/list")
+        expect(json).to eq({ "message" => "Requires authentication" })
+      end
     end
 
     it 'Raises and error due to malformed header' do
-      post "/api/list", headers: { "Authorization" => "not_valid"}
-      expect(json).to include( "error" => "invalid_request" )
+      methods.each do |method|
+        send(method, "/api/list", headers: { "Authorization" => "not_valid"} )
+        expect(json).to include( "error" => "invalid_request" )
+      end
     end
 
     it 'Raises and error due to invalid scheme' do
-      post "/api/list", headers: { "Authorization" => "not_valid #{Faker::Lorem.characters(number: 100)}"}
-      expect(json).to eq({ "message" => "Bad credentials" })
+      methods.each do |method|
+        send(method, "/api/list", headers: { "Authorization" => "not_valid #{invalid_token}"} )
+        expect(json).to eq({ "message" => "Bad credentials" })
+      end
     end
 
     it 'Raises and error due to invalid token' do
-      post "/api/list", headers: { "Authorization" => "Bearer #{Faker::Lorem.characters(number: 100)}"}
-      expect(json).to eq({ "errors" => ["authorization: Invalid credentials"] })
+      methods.each do |method|
+        send(method, "/api/list", headers: { "Authorization" => "Bearer #{invalid_token}"} )
+        expect(json).to eq({ "errors" => ["authorization: Invalid credentials"] })
+      end
     end
-
   end
 end
