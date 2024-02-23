@@ -9,6 +9,11 @@ class Api::ListController < ApplicationController
     render json: list.errors, status: :unprocessable_entity
   end
 
+  def index
+    lists = List.where(user_id: params.require(:user_id))
+    render json: { lists:, total: lists.length }
+  end
+
   private
 
   def list_params
