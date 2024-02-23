@@ -14,6 +14,8 @@ module Secured
 
   def authorize
     token = token_from_request
+    return unless token
+
     valid_token = JsonWebToken.decode(token)
 
     return unless valid_token[0].has_key?(:error)
