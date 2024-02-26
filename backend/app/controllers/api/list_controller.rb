@@ -31,6 +31,7 @@ class Api::ListController < ApplicationController
   def destroy
     list = List.find_by(id: params.require(:id))
     raise StandardError.new NOT_FOUND_ERROR % params[:id] unless list
+    list.destroy
     render json: { id: list[:id], title: list[:title], message: "Success: List deleted."}, status: :ok
   rescue => error
     render json: { error: error.message }, status: :unprocessable_entity
