@@ -5,6 +5,7 @@ RSpec.describe 'Lists', type: :request do
   list_data = FakeDataHelper::FakeData.list
 
   let!(:user) { User.create user_data }
+  let(:list) { List.create list_data.merge({ user_id: user[:id] })}
   let(:headers) { authorization_header(user_data) }
 
   describe 'Create' do
@@ -48,7 +49,35 @@ RSpec.describe 'Lists', type: :request do
   end
 
   describe 'Update' do
-    it ''
+    it 'Raise an error due to list not found' do
+      id = '123'
+      put "/api/list/#{id}", headers: headers, params: { title: "" }
+      expect(json.symbolize_keys).to eq({ error: "notFound: A list with id: #{id} was not found." })
+    end
+
+    it 'Raises an error due to empty params' do
+      put "/api/list/#{list[:id]}", headers: headers, params: { title: "" }
+      expect(json.symbolize_keys).to eq({ error: "param is missing or the value is empty: title" })
+    end
+
+    it 'Raise an error due to invalid title length' do
+      title =  Faker::Lorem.characters(number: 101)
+      put "/api/list/#{list[:id]}", headers: headers, params: { title: }
+      expect(json.symbolize_keys).to eq({ error: "Title is too long (maximum is 100 characters)" })
+    end
+
+    it 'Returns a list' do
+      title = "Desserts"
+      put "/api/list/#{list[:id]}", headers: headers, params: { title: }
+      expect(json["title"]).to eq(title)
+    end
+
+    it 'Update the database' do
+      title = "Desserts"
+      put "/api/list/#{list[:id]}", headers: headers, params: { title: }
+      list_database = List.find(list[:id])
+      expect(list_database["title"]).to eq(title)
+    end
   end
 
   describe 'Authorization routes' do
