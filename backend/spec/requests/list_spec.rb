@@ -81,7 +81,7 @@ RSpec.describe 'Lists', type: :request do
   end
 
   describe 'Authorization routes' do
-    methods = { post: "/api/list", get: "/api/list", put: "/api/list/123" }
+    methods = { post: "/api/list", get: "/api/list", put: "/api/list/123" , delete: "/api/list/123" }
     invalid_token = Faker::Lorem.characters(number: 100)
 
     it 'Raises an error due to empty authorization header' do
