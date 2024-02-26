@@ -47,34 +47,38 @@ RSpec.describe 'Lists', type: :request do
     end
   end
 
+  describe 'Update' do
+    it ''
+  end
+
   describe 'Authorization routes' do
-    methods = %w[post get]
+    methods = { post: "/api/list", get: "/api/list", put: "/api/list/123" }
     invalid_token = Faker::Lorem.characters(number: 100)
 
     it 'Raises an error due to empty authorization header' do
-      methods.each do |method|
-        send(method, "/api/list")
+      methods.each do |method, url|
+        send(method, url)
         expect(json).to eq({ "message" => "Requires authentication" })
       end
     end
 
     it 'Raises and error due to malformed header' do
-      methods.each do |method|
-        send(method, "/api/list", headers: { "Authorization" => "not_valid"} )
+      methods.each do |method, url|
+        send(method, url, headers: { "Authorization" => "not_valid"} )
         expect(json).to include( "error" => "invalid_request" )
       end
     end
 
     it 'Raises and error due to invalid scheme' do
-      methods.each do |method|
-        send(method, "/api/list", headers: { "Authorization" => "not_valid #{invalid_token}"} )
+      methods.each do |method, url|
+        send(method, url, headers: { "Authorization" => "not_valid #{invalid_token}"} )
         expect(json).to eq({ "message" => "Bad credentials" })
       end
     end
 
     it 'Raises and error due to invalid token' do
-      methods.each do |method|
-        send(method, "/api/list", headers: { "Authorization" => "Bearer #{invalid_token}"} )
+      methods.each do |method, url|
+        send(method, url, headers: { "Authorization" => "Bearer #{invalid_token}"} )
         expect(json).to eq({ "errors" => ["authorization: Invalid credentials"] })
       end
     end
