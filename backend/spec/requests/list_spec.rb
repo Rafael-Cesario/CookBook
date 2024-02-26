@@ -80,6 +80,27 @@ RSpec.describe 'Lists', type: :request do
     end
   end
 
+  describe 'Delete' do
+    it 'Raise an error due to list not found' do
+      id = '123'
+      delete "/api/list/#{id}", headers: headers, params: { title: "" }
+      expect(json.symbolize_keys).to eq({ error: "notFound: A list with id: #{id} was not found." })
+    end
+
+    it 'Returns info about the deleted list' do
+      delete "/api/list/#{list[:id]}", headers: headers
+      expected = { id: list[:id], title: list[:title], message: "Success: List deleted." }
+      expect(json.symbolize_keys).to include(expected)
+    end
+
+    it 'Delete the list on the database' do
+      list
+      expect(List.all.length).to be(1)
+      delete "/api/list/#{list[:id]}", headers: headers
+      expect(List.all.reload.length).to be(0)
+    end
+  end
+
   describe 'Authorization routes' do
     methods = { post: "/api/list", get: "/api/list", put: "/api/list/123" , delete: "/api/list/123" }
     invalid_token = Faker::Lorem.characters(number: 100)
