@@ -44,6 +44,21 @@ RSpec.describe 'Api::Recipes', type: :request do
     end
   end
 
+  describe 'Get all' do
+    it 'Returns an array of recipes' do
+      3.times { |i| Recipe.create recipe_data.merge({ list_id: list[:id] })}
+      get "/api/recipe?list_id=#{ list[:id] }", headers: headers
+      expect(json["recipes"].length).to be(3)
+      expect(json["total"]).to be(3)
+    end
+
+    it 'Returns an empty array' do
+      get "/api/recipe?list_id=#{ list[:id] }", headers: headers
+      expect(json["recipes"].length).to be(0)
+      expect(json["total"]).to be(0)
+    end
+  end
+
   describe 'Authorization headers' do
     methods = { post: '/api/recipe' }
     invalid_token = Faker::Lorem.characters(number: 100)
