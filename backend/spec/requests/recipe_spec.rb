@@ -7,6 +7,7 @@ RSpec.describe 'Api::Recipes', type: :request do
 
   let!(:user) { User.create user_data }
   let(:list) { List.create list_data.merge({ user_id: user[:id] }) }
+  let(:recipe) { Recipe.create recipe_data.merge({ list_id: list[:id] }) }
   let(:headers) { authorization_header(user_data) }
 
   describe 'Create' do
@@ -46,17 +47,47 @@ RSpec.describe 'Api::Recipes', type: :request do
 
   describe 'Get all' do
     it 'Returns an array of recipes' do
-      3.times { |i| Recipe.create recipe_data.merge({ list_id: list[:id] })}
-      get "/api/recipe?list_id=#{ list[:id] }", headers: headers
-      expect(json["recipes"].length).to be(3)
-      expect(json["total"]).to be(3)
+      3.times { Recipe.create recipe_data.merge({ list_id: list[:id] }) }
+      get("/api/recipe?list_id=#{list[:id]}", headers:)
+      expect(json['recipes'].length).to be(3)
+      expect(json['total']).to be(3)
     end
 
     it 'Returns an empty array' do
-      get "/api/recipe?list_id=#{ list[:id] }", headers: headers
-      expect(json["recipes"].length).to be(0)
-      expect(json["total"]).to be(0)
+      get("/api/recipe?list_id=#{list[:id]}", headers:)
+      expect(json['recipes'].length).to be(0)
+      expect(json['total']).to be(0)
     end
+  end
+
+  describe 'Update' do
+    it 'Raises an error due to recipe not found' do
+      put('/api/recipe/123', headers:)
+      expect(json['errors']).to eq('notFound: A recipe with id: 123 was not found.')
+    end
+
+    it 'Raises an error due to empty params' do
+      fields = { title: '', ingredients: '', instructions: '', cooking_time: '', list_id: '' }
+      params = { recipe: fields }
+      put("/api/recipe/#{recipe[:id]}", headers:, params:)
+      expect(json['errors']).to eq("List must exist, Title can't be blank, Ingredients can't be blank, Instructions can't be blank, Cooking time can't be blank, List can't be blank")
+    end
+
+    it 'Raises and error due to long title' do
+      fields = recipe_data.merge({ title: Faker::Lorem.characters(number: 101) })
+      params = { recipe: fields }
+      put("/api/recipe/#{recipe[:id]}", headers:, params:)
+      expect(json["errors"]).to eq("Title is too long (maximum is 100 characters)")
+    end
+
+    it 'Returns the updated recipe' do
+      title = "Desserts 02"
+      params = { recipe: { title: }}
+      put("/api/recipe/#{recipe[:id]}", headers:, params:)
+      expect(json["recipe"]["title"]).to eq(title)
+    end
+
+    it 'Updates recipe on database'
   end
 
   describe 'Authorization headers' do

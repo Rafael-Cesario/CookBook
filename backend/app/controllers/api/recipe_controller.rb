@@ -24,7 +24,7 @@ class Api::RecipeController < ApplicationController
     errors = recipe.errors.full_messages.join(", ")
     raise StandardError.new errors unless recipe.valid?
 
-    render json: { recipe:, message: "Success: Recipe updated" }
+    render json: { recipe:, message: "Success: Recipe updated" }, status: :ok
   rescue => error
     render json: { errors: error.message }, status: :unprocessable_entity
   end
