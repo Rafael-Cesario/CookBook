@@ -7,5 +7,12 @@ module FakeDataHelper
     }
 
     def self.list() = { title: Faker::Food.dish }
+
+    def self.recipe() = {
+      title: Faker::Food.dish,
+      ingredients: Faker::Lorem.characters(number: 20),
+      instructions: Faker::Lorem.characters(number: 20),
+      cooking_time: "30 minutes",
+    }
   end
 end
