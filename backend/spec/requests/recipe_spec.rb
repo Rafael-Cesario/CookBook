@@ -87,7 +87,13 @@ RSpec.describe 'Api::Recipes', type: :request do
       expect(json["recipe"]["title"]).to eq(title)
     end
 
-    it 'Updates recipe on database'
+    it 'Updates recipe on database' do
+      title = "Desserts 02"
+      params = { recipe: { title: }}
+      put("/api/recipe/#{recipe[:id]}", headers:, params:)
+      recipe = Recipe.first
+      expect(recipe[:title]).to eq(title)
+    end
   end
 
   describe 'Authorization headers' do
