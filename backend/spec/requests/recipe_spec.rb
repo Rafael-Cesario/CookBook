@@ -97,7 +97,7 @@ RSpec.describe 'Api::Recipes', type: :request do
   end
 
   describe 'Authorization headers' do
-    methods = { post: '/api/recipe' }
+    methods = { post: '/api/recipe', get: "/api/recipe?list_id=123", put: "/api/recipe/123" }
     invalid_token = Faker::Lorem.characters(number: 100)
 
     it 'Raises an error due to empty authorization header' do
