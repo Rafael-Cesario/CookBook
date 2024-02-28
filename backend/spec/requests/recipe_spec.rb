@@ -96,8 +96,27 @@ RSpec.describe 'Api::Recipes', type: :request do
     end
   end
 
+  describe 'Delete' do
+    it 'Raises an error due to recipe not found' do
+      delete("/api/recipe/123", headers:)
+      expect(json["errors"]).to eq("notFound: A recipe with id: 123 was not found.")
+    end
+
+    it 'Returns the deleted recipe' do
+      delete("/api/recipe/#{recipe[:id]}", headers:)
+      expect(json["recipe"].symbolize_keys).to eq({ id: recipe[:id], title: recipe[:title] })
+    end
+
+    it 'Deletes a recipe from database' do
+      recipe
+      expect(Recipe.all.length).to be(1)
+      delete("/api/recipe/#{recipe[:id]}", headers:)
+      expect(Recipe.all.length).to be(0)
+    end
+  end
+
   describe 'Authorization headers' do
-    methods = { post: '/api/recipe', get: "/api/recipe?list_id=123", put: "/api/recipe/123" }
+    methods = { post: '/api/recipe', get: "/api/recipe?list_id=123", put: "/api/recipe/123", delete: "/api/recipe/123" }
     invalid_token = Faker::Lorem.characters(number: 100)
 
     it 'Raises an error due to empty authorization header' do
