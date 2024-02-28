@@ -29,6 +29,15 @@ class Api::RecipeController < ApplicationController
     render json: { errors: error.message }, status: :unprocessable_entity
   end
 
+  def destroy
+    recipe = Recipe.find_by(id: params.require(:id))
+    raise StandardError.new NOT_FOUND_ERROR % params[:id] unless recipe
+    recipe.destroy
+    render json: { recipe: { id: recipe[:id], title: recipe[:title] }, message: "Success: Recipe deleted." }
+  rescue => error
+    render json: { errors: error.message }, status: :bad_request
+  end
+
   private
 
   def recipe_params
