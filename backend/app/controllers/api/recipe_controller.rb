@@ -5,14 +5,20 @@ class Api::RecipeController < ApplicationController
 
   def create
     recipe = Recipe.new(recipe_params)
-    recipe.save!
+    raise StandardError.new recipe.errors.full_messages.join(", ") unless recipe.save
     render json: recipe, status: :created
-  rescue
-    render json: recipe.errors, status: :unprocessable_entity
+  rescue => error
+    render json: { errors: error.message }, status: :unprocessable_entity
   end
 
   def index
     recipes = Recipe.where(list_id: params.require(:list_id))
+
+    recipes = recipes.map do |recipe|
+      next recipe unless recipe.cover.attached?
+      recipe.attributes.merge({ cover: url_for(recipe.cover) })
+    end
+
     render json: { recipes:, total: recipes.length }, status: :ok
   end
 
@@ -41,6 +47,6 @@ class Api::RecipeController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :instructions, :cooking_time, :list_id)
+    params.require(:recipe).permit(:title, :ingredients, :instructions, :cooking_time, :list_id, :cover)
   end
 end
