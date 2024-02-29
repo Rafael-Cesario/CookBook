@@ -12,4 +12,4 @@ CookBook Rails API only with postgresql
 - CRUD Lists
 - CRUD Recipes
 - Image upload using active_storage
-- Tests: Requets with Rspec
+- Tests: Requests with Rspec
