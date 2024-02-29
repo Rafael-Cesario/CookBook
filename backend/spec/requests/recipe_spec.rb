@@ -12,23 +12,27 @@ RSpec.describe 'Api::Recipes', type: :request do
 
   describe 'Create' do
     it 'Validates the presence of fields' do
-      fields = { title: '', ingredients: '', instructions: '', cooking_time: '', list_id: '' }
+      fields = { title: '', ingredients: '', instructions: '', cooking_time: '' }
       params = { recipe: fields }
       post('/api/recipe', headers:, params:)
-      fields.keys.each { |key| expect(json[key.to_s]).to include("can't be blank") }
+
+      fields.keys.each do |key|
+        key = key.to_s.sub("_", " ")
+        expect(json["errors"].downcase).to include("#{key} can't be blank")
+      end
     end
 
     it 'Validates the length of title' do
       data = recipe_data.merge({ title: Faker::Lorem.characters(number: 101), list_id: list[:id] })
       params = { recipe: data }
       post('/api/recipe', headers:, params:)
-      expect(json['title']).to eq(['is too long (maximum is 100 characters)'])
+      expect(json["errors"]).to include('Title is too long (maximum is 100 characters)')
     end
 
     it 'Can not create a recipe without a list' do
       params = { recipe: recipe_data }
       post('/api/recipe', headers:, params:)
-      expect(json['list']).to eq(['must exist'])
+      expect(json["errors"]).to include("List must exist")
     end
 
     it 'Returns a new recipe' do
