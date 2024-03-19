@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { fontNames } from "./fonts";
+import { AllProviders } from "@/lib/providers";
+import { GlobalStyled } from "@/styles/global";
 
 export const metadata: Metadata = {
 	title: "Cookbook",
@@ -9,7 +11,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="pt-br">
-			<body className={fontNames}>{children}</body>
+			<body className={fontNames}>
+				<AllProviders>
+					<GlobalStyled />
+					{children}
+				</AllProviders>
+			</body>
 		</html>
 	);
 }
