@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { fontNames } from "./fonts";
 
 export const metadata: Metadata = {
 	title: "Cookbook",
@@ -11,7 +9,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="pt-br">
-			<body className={inter.className}>{children}</body>
+			<body className={fontNames}>{children}</body>
 		</html>
 	);
 }
+
