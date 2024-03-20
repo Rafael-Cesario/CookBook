@@ -8,13 +8,15 @@ export const metadata: Metadata = {
 	description: "Your recipe book",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children, auth }: Readonly<{ children: React.ReactNode; auth: React.ReactNode }>) {
+	const isLogged = false;
+
 	return (
 		<html lang="pt-br">
 			<body className={fontNames}>
 				<AllProviders>
 					<GlobalStyled />
-					{children}
+					{isLogged ? children : auth}
 				</AllProviders>
 			</body>
 		</html>
