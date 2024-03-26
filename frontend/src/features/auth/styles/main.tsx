@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 export const StyledMain = styled.main`
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
 	margin: 8rem 16rem;
@@ -22,6 +23,7 @@ export const StyledMain = styled.main`
 
 	.picture {
 		position: relative;
+		margin: 1rem;
 
 		&::after {
 			content: "";
@@ -35,6 +37,16 @@ export const StyledMain = styled.main`
 			background-color: ${palette.primary};
 			opacity: 20%;
 			border-radius: ${palette.borderRadius};
+		}
+	}
+
+	@media (max-width: 1350px) {
+		flex-direction: column;
+		justify-content: center;
+		margin: 2rem 2rem;
+
+		.introduction {
+			text-align: center;
 		}
 	}
 `;

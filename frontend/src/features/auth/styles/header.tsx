@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 export const StyledHeader = styled.header`
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 	margin: 2rem 16rem;
 
@@ -30,6 +31,18 @@ export const StyledHeader = styled.header`
 		.login {
 			color: ${palette.background};
 			background-color: ${palette.primary};
+		}
+	}
+
+	@media (max-width: 1350px) {
+		margin: 2rem 8rem;
+	}
+
+	@media (max-width: 700px) {
+		flex-direction: column;
+
+		.form-buttons {
+			margin-top: 1rem;
 		}
 	}
 `;
