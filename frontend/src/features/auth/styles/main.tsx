@@ -8,7 +8,7 @@ export const StyledMain = styled.main`
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	margin: 8rem 16rem;
+	margin: 12rem 16rem;
 
 	.introduction {
 		max-width: 480px;
