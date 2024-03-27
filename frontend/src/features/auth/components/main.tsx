@@ -5,7 +5,7 @@ export const Main = () => {
 	return (
 		<StyledMain>
 			<div className="introduction">
-				<h1 className="title">A melhor maneira <br /> de colhecionar receitas</h1>
+				<h1 className="title">A melhor maneira <br /> de colecionar receitas</h1>
 				<p className="text">Salve suas refeições e suas sobremesas favoritas nas medidas perfeitas para você.</p>
 			</div>
 
