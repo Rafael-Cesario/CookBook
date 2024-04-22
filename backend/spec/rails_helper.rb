@@ -30,15 +30,11 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_paths = [
-    Rails.root.join('spec/fixtures')
-  ]
+  require_relative "support/helpers/fake_data"
+  config.include FakeDataHelper
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
+  require_relative "support/helpers/response"
+  config.include ResponseHelper
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
