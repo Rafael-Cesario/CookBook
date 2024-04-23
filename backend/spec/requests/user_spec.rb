@@ -30,7 +30,11 @@ RSpec.describe 'Users', type: :request do
       expect(json[:errors]).to include(*errors)
     end
 
-    it 'Validates email uniqueness'
+    it 'Validates email uniqueness' do
+      post path, params: { user: user_data }
+      post path, params: { user: user_data }
+      expect(json[:errors]).to include "Email has already been taken"
+    end
 
     it 'Validates name length'
 
