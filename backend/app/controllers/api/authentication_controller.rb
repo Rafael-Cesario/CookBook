@@ -9,10 +9,9 @@ class Api::AuthenticationController < ApplicationController
     raise InvalidCredentials unless user
     raise InvalidCredentials unless user.authenticate(login_params[:password])
 
-    # Todo >
-    # token = generate_token(user_id)
     message = "Success: Token created"
-    response = { message:, id: user[:id], email: user[:email] }
+    token = JsonWebToken.encode(user_id: user[:id])
+    response = { message:, token:, id: user[:id], email: user[:email] }
 
     render json: response, status: :ok
   end
