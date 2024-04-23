@@ -24,7 +24,11 @@ RSpec.describe 'Users', type: :request do
       expect(user[:password_digest]).to_not eq user_data[:password]
     end
 
-    it 'Validates fields presence'
+    it 'Validates fields presence' do
+      post path, params: { user: { email: "", password: "", name: "" }}
+      errors = [ "Email can't be blank", "Password can't be blank", "Name can't be blank" ]
+      expect(json[:errors]).to include(*errors)
+    end
 
     it 'Validates email uniqueness'
 
