@@ -42,6 +42,13 @@ RSpec.describe 'Users', type: :request do
       expect(json[:errors]).to include "Name is too long (maximum is 30 characters)"
     end
 
-    it 'Downcase a email before save'
+    it 'Downcase a email before save' do
+      email = "HELLO@EMAIL.COM"
+      post path, params: { user: { **user_data, email: }}
+      user = User.find_by(email: email.downcase)
+
+      expect(json[:email]).to eq email.downcase
+      expect(user[:email]).to eq email.downcase
+    end
   end
 end
