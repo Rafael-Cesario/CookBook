@@ -36,7 +36,11 @@ RSpec.describe 'Users', type: :request do
       expect(json[:errors]).to include "Email has already been taken"
     end
 
-    it 'Validates name length'
+    it 'Validates name length' do
+      name =  Faker::Lorem.characters(number: 31)
+      post path, params: { user: { **user_data, name: }}
+      expect(json[:errors]).to include "Name is too long (maximum is 30 characters)"
+    end
 
     it 'Downcase a email before save'
   end
