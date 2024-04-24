@@ -12,4 +12,4 @@ const courier_prime = Courier_Prime({
 	weight: "400",
 });
 
-export const ClassNameFonts = `${playfair_display.className} ${courier_prime.className}`;
+export const ClassNameFonts = `${playfair_display.variable} ${courier_prime.variable}`;
