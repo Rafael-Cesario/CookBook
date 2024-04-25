@@ -7,7 +7,7 @@ export const StyledHeader = styled.header`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin: 1rem 2rem;
+	margin: 1rem 20rem;
 
 	.title {
 		display: flex;
