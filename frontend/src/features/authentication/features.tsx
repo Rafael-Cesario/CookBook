@@ -1,4 +1,4 @@
-import { StyledFeatures } from "./styles/styled-features";
+import { StyledFeatures } from "./styles/features";
 
 export const Features = () => {
 	return (

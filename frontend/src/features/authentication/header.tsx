@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { StyledHeader } from "./styles/styled-header";
+import { StyledHeader } from "./styles/header";
 
 export const Header = () => {
 	return (

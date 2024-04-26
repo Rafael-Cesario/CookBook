@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { StyledIntro } from "./styles/styled-intro";
+import { StyledIntro } from "./styles/intro";
 
 export const Intro = () => {
 	return (
