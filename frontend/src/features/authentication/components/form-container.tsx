@@ -7,7 +7,10 @@ interface IFormContainer {
 export const FormContainer = ({ children }: IFormContainer) => {
 	return (
 		<StyledFormContainer>
-			<div className="container">{children}</div>
+			<div className="container">
+				<button className="close">x</button>
+				{children}
+			</div>
 		</StyledFormContainer>
 	);
 };

@@ -4,5 +4,5 @@ export const theme = {
 	primary: "#105EA7",
 	error: "#B64646",
 
-	borderRadius: "8px",
+	borderRadius: "4px",
 };

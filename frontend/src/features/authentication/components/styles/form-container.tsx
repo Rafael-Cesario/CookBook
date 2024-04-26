@@ -17,8 +17,28 @@ export const StyledFormContainer = styled.div`
 	align-items: center;
 
 	.container {
-    padding: 2rem 4rem;
+		padding: 1rem;
 		background-color: ${theme.background};
-    border-radius: ${theme.borderRadius};
+		border-radius: ${theme.borderRadius};
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.close {
+			align-self: flex-end;
+			background-color: transparent;
+			font-size: 1rem;
+			font-weight: bold;
+			opacity: 0.5;
+			padding: 1rem 2rem;
+
+			&:hover {
+				background-color: ${theme.error};
+				color: white;
+				opacity: 1;
+				font-weight: normal;
+			}
+		}
 	}
 `;
