@@ -1,3 +1,4 @@
+import { Field } from "./components/field";
 import { StyledCreateUserForm } from "./styles/create-user-form";
 
 export const CreateUserForm = () => {
@@ -6,33 +7,10 @@ export const CreateUserForm = () => {
 			<h1 className="title">Criar uma Conta</h1>
 
 			<form>
-				<div className="field">
-					<label className="text" htmlFor="#email">
-						Email
-					</label>
-					<input type="text" id="email" />
-				</div>
-
-				<div className="field">
-					<label className="text" htmlFor="#name">
-						Nome
-					</label>
-					<input type="text" id="name" />
-				</div>
-
-				<div className="field">
-					<label className="text" htmlFor="#password">
-						Senha
-					</label>
-					<input type="text" id="password" />
-				</div>
-
-				<div className="field">
-					<label className="text" htmlFor="#password-validation">
-						Confirme sua senha
-					</label>
-					<input type="text" id="password-validation" />
-				</div>
+				<Field props={{ field: "email", label: "Email", type: "text" }} />
+				<Field props={{ field: "name", label: "Nome", type: "text" }} />
+				<Field props={{ field: "password", label: "Senha", type: "password" }} />
+				<Field props={{ field: "passwordValidation", label: "Confirme sua senha", type: "password" }} />
 
 				<button className="submit">Confirmar</button>
 			</form>
