@@ -13,6 +13,10 @@ export class UserValidation implements IUserValidation {
 	email(): string {
 		const { email } = this.userData;
 		if (!email) return "Este campo não pode ficar vazio.";
+
+		const [user, domain] = email.split("@");
+		if (!user || !domain) return "Email invalido.";
+
 		return "";
 	}
 

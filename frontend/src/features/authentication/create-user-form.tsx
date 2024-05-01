@@ -20,6 +20,7 @@ export const CreateUserForm = () => {
 		console.log({ userData, dataErrors });
 
 		const { errors, hasErrors } = validateFields();
+		console.log({ errors, hasErrors, emailError: errors.email });
 		if (hasErrors) return updateErrors(errors);
 
 		console.log("Create user");
