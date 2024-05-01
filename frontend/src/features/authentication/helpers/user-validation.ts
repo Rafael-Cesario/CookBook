@@ -21,8 +21,13 @@ export class UserValidation implements IUserValidation {
 	}
 
 	name(): string {
+		const { name } = this.userData;
+		if (!name) return "Este campo não pode ficar vazio.";
+		if (name.length > 30) return "Máximo de 30 caracteres";
+
 		return "";
 	}
+
 	password(): string {
 		return "";
 	}
