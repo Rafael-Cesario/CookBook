@@ -4,13 +4,16 @@ import { useState } from "react";
 import { Field } from "./components/field";
 import { StyledCreateUserForm } from "./styles/create-user-form";
 import { produce } from "immer";
+import { IUserData } from "./interfaces/user";
+import { UserValidation } from "./helpers/user-validation";
 
 export const CreateUserForm = () => {
-	const userDefaultValues = { email: "", name: "", password: "", passwordValidation: "" };
+	const userDefaultValues: IUserData = { email: "", name: "", password: "", passwordValidation: "" };
 
 	const [userData, setUserData] = useState({ ...userDefaultValues });
 	const [dataErrors, setDataErrors] = useState({ ...userDefaultValues });
 
+	// Todo > Tests
 	const createUser = (e: React.FormEvent) => {
 		e.preventDefault();
 
@@ -18,27 +21,31 @@ export const CreateUserForm = () => {
 
 		const { errors, hasErrors } = validateFields();
 		if (hasErrors) return updateErrors(errors);
+
+		console.log("Create user");
 	};
 
-	const updateValues = (field: keyof typeof userDefaultValues, value: string) => {
+	const updateValues = (field: keyof IUserData, value: string) => {
 		const nextState = produce(userData, (draft) => void (draft[field] = value));
 		setUserData(nextState);
 	};
 
-	const updateErrors = (errors: typeof userDefaultValues) => {
+	const updateErrors = (errors: IUserData) => {
 		setDataErrors(errors);
 	};
 
 	// Todo >
 	const validateFields = () => {
-		const fields = Object.entries(userData);
-		const errors = { ...userDefaultValues };
+		const validate = new UserValidation(userData);
+
+		const fields = Object.keys(userData) as (keyof IUserData)[];
+		const errors: IUserData = { ...userDefaultValues };
 		let hasErrors = false;
 
-		fields.forEach(([key, value]) => {
-			// Validate field
-			// errors[key] = error
-			// if error hasErrors = true;
+		fields.forEach((field) => {
+			const error = validate[field]();
+			if (error) hasErrors = true;
+			errors[field] = error;
 		});
 
 		return { hasErrors, errors };
