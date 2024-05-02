@@ -29,9 +29,21 @@ export class UserValidation implements IUserValidation {
 	}
 
 	password(): string {
+		const { password } = this.userData;
+
+		if (!password) return "Este campo não pode ficar vazio.";
+		if (password.length < 10) return "Sua senha precisa ter no mínimo 10 caracteres.";
+		if (!/[a-z]/.test(password)) return "Sua senha precisa conter letras maiúsculas e minúsculas.";
+		if (!/[A-Z]/.test(password)) return "Sua senha precisa conter letras maiúsculas e minúsculas.";
+		if (!/[0-9]/.test(password)) return "Sua senha não é forte o suficiente, adicione ao menos um número.";
+
 		return "";
 	}
+
 	passwordValidation(): string {
+		const { password, passwordValidation } = this.userData;
+		if (password !== passwordValidation) return "Suas senhas não estão iguais.";
+
 		return "";
 	}
 }
