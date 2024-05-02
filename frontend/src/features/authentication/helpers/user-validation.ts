@@ -42,6 +42,7 @@ export class UserValidation implements IUserValidation {
 
 	passwordValidation(): string {
 		const { password, passwordValidation } = this.userData;
+		if (!passwordValidation) return "Este campo não pode ficar vazio.";
 		if (password !== passwordValidation) return "Suas senhas não estão iguais.";
 
 		return "";

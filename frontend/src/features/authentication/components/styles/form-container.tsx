@@ -8,18 +8,19 @@ export const StyledFormContainer = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100%;
+	min-height: 100%;
 	background-color: #11111120;
 	backdrop-filter: blur(2px);
 
 	display: flex;
 	justify-content: center;
-	align-items: center;
 
 	.container {
+		margin: 4rem;
 		padding: 1rem;
 		background-color: ${theme.background};
 		border-radius: ${theme.borderRadius};
+		height: fit-content;
 
 		display: flex;
 		flex-direction: column;

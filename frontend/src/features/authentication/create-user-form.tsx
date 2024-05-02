@@ -13,6 +13,7 @@ export const CreateUserForm = () => {
 	const [userData, setUserData] = useState({ ...userDefaultValues });
 	const [dataErrors, setDataErrors] = useState({ ...userDefaultValues });
 
+	// Todo
 	// Todo > Tests
 	const createUser = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -34,7 +35,6 @@ export const CreateUserForm = () => {
 		setDataErrors(errors);
 	};
 
-	// Todo >
 	const validateFields = () => {
 		const validate = new UserValidation(userData);
 
@@ -62,6 +62,7 @@ export const CreateUserForm = () => {
 						field: "email",
 						label: "Email",
 						type: "text",
+						error: dataErrors.email,
 					}}
 				/>
 
@@ -71,6 +72,7 @@ export const CreateUserForm = () => {
 						field: "name",
 						label: "Nome",
 						type: "text",
+						error: dataErrors.name,
 					}}
 				/>
 
@@ -80,6 +82,7 @@ export const CreateUserForm = () => {
 						field: "password",
 						label: "Senha",
 						type: "password",
+						error: dataErrors.password,
 					}}
 				/>
 
@@ -89,6 +92,7 @@ export const CreateUserForm = () => {
 						field: "passwordValidation",
 						label: "Confirme sua senha",
 						type: "password",
+						error: dataErrors.passwordValidation,
 					}}
 				/>
 
