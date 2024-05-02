@@ -19,18 +19,33 @@ export const StyledField = styled.div`
 		color: ${theme.error};
 	}
 
-	.input-error {
-		border: 2px solid ${theme.error};
-	}
-
-	input {
+	.input-area {
+		display: flex;
 		background-color: #11111110;
-		border: 2px solid transparent;
-		padding: 8px 1rem;
 		border-radius: ${theme.borderRadius};
 
-		&:focus {
-			outline: 2px solid ${theme.primary + "50"};
+		.input-error {
+			border: 2px solid ${theme.error};
+		}
+
+		.icon {
+			cursor: pointer;
+			height: 100%;
+			align-self: center;
+			margin: 8px;
+			width: 20px;
+		}
+
+		input {
+			border-radius: ${theme.borderRadius};
+			background-color: transparent;
+			width: 100%;
+			border: 2px solid transparent;
+			padding: 8px 1rem;
+
+			&:focus {
+				outline: 2px solid ${theme.primary + "50"};
+			}
 		}
 	}
 `;
