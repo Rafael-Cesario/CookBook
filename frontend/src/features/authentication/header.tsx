@@ -1,7 +1,15 @@
 import Image from "next/image";
 import { StyledHeader } from "./styles/header";
+import { Forms } from "./interfaces/forms";
 
-export const Header = () => {
+interface IHeader {
+	props: {
+		activeForm: Forms;
+		setActiveForm(form: Forms): void;
+	};
+}
+
+export const Header = ({ props: { activeForm, setActiveForm } }: IHeader) => {
 	return (
 		<StyledHeader>
 			<div className="title">
@@ -10,7 +18,10 @@ export const Header = () => {
 			</div>
 
 			<div className="open-forms">
-				<button className="create">Criar uma conta</button>
+				<button onClick={() => setActiveForm(Forms.create)} className="create">
+					Criar uma conta
+				</button>
+
 				<button className="login">Entrar</button>
 			</div>
 		</StyledHeader>
