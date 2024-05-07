@@ -18,21 +18,22 @@ export const CreateUserForm = () => {
 	const createUser = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		console.log({ userData, dataErrors });
-
 		const { errors, hasErrors } = validateFields();
 		if (hasErrors) return updateErrors(errors);
 
-		console.log("Create user");
-
 		const { email, name, password } = userData;
 		const response = await userRequests.createUser({ user: { email, name, password } });
-		console.log({ response });
 
-		// Todos >
-		// Notification
-		// if success clear form fields and change form to login
+		// Todo >
 		// catch errors
+		// Send notification with error message
+		if (response.error || !response.data) return;
+
+		// Todo >
+		// Clear form
+		// Success notification
+		// set active form to login
+		console.log({ response });
 	};
 
 	const updateValues = (field: keyof IUserData, value: string) => {
