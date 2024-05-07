@@ -25,8 +25,8 @@ export const CreateUserForm = () => {
 		const response = await userRequests.createUser({ user: { email, name, password } });
 
 		// Todo >
-		// catch errors
 		// Send notification with error message
+		console.log({ error: response.error });
 		if (response.error || !response.data) return;
 
 		// Todo >

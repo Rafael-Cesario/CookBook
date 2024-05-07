@@ -1,13 +1,10 @@
 import axios from "axios";
 import { ICreateUser, RCreateUser } from "../interfaces/user";
-
-// Todo >
-// const userRequestErrors = {
-// 	duplicatedEmail: "Esse endereço de email já está em uso."
-// }
+import { UserRequestErrors } from "../helpers/user-request-errors";
 
 export class UserRequests {
 	private URL = "http://localhost:8080/api/users";
+	private userErrors = new UserRequestErrors();
 
 	async createUser(user: ICreateUser) {
 		try {
@@ -15,10 +12,9 @@ export class UserRequests {
 			const data: RCreateUser = response.data;
 			return { data, error: null };
 		} catch (error: any) {
-			// Todo >
-			// Catch Errors
-			console.log({ error: error.response.data.errors });
-			return { data: null, error: "Um erro inesperado ocorreu" };
+			const message = error.response.data.errors[0];
+			const formatedMessage = this.userErrors.getError(message);
+			return { data: null, error: formatedMessage };
 		}
 	}
 }
