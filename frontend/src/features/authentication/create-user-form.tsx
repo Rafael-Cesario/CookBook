@@ -6,16 +6,16 @@ import { StyledCreateUserForm } from "./styles/create-user-form";
 import { produce } from "immer";
 import { IUserData } from "./interfaces/user";
 import { UserValidation } from "./helpers/user-validation";
+import { UserRequests } from "./requests/user";
 
 export const CreateUserForm = () => {
+	const userRequests = new UserRequests();
 	const userDefaultValues: IUserData = { email: "", name: "", password: "", passwordValidation: "" };
 
 	const [userData, setUserData] = useState({ ...userDefaultValues });
 	const [dataErrors, setDataErrors] = useState({ ...userDefaultValues });
 
-	// Todo
-	// Todo > Tests
-	const createUser = (e: React.FormEvent) => {
+	const createUser = async (e: React.FormEvent) => {
 		e.preventDefault();
 
 		console.log({ userData, dataErrors });
@@ -24,6 +24,15 @@ export const CreateUserForm = () => {
 		if (hasErrors) return updateErrors(errors);
 
 		console.log("Create user");
+
+		const { email, name, password } = userData;
+		const response = await userRequests.createUser({ user: { email, name, password } });
+		console.log({ response });
+
+		// Todos >
+		// Notification
+		// if success clear form fields and change form to login
+		// catch errors
 	};
 
 	const updateValues = (field: keyof IUserData, value: string) => {

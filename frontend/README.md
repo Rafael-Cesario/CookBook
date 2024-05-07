@@ -1,3 +1,3 @@
 # Cookbook Frontend
 
-###### Nextjs, Styled-Components
+###### Nextjs, Styled-Components, Axios

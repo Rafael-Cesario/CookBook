@@ -1,7 +1,7 @@
 # Cookbook
 ###### Work in Progress
 
-###### Frontend: Nextjs - Styled Components 
+###### Frontend: Nextjs - Styled Components - Axios
 ###### Backend: Ruby on rails - Postgresql 
 
 
