@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { StyledIntro } from "./styles/intro";
+import { Notification } from "@/components/notification";
 
 export const Intro = () => {
 	return (
 		<StyledIntro>
+			<Notification />
+
 			<div className="description">
 				<h1 className="title">A melhor maneira de colecionar receitas</h1>
 				<p className="text">Salve suas refeições e suas sobremesas favoritas nas medidas perfeitas para você.</p>
