@@ -17,7 +17,15 @@ const initialState: INotification = {
 export const notificationSlice = createSlice({
 	name: "notification",
 	initialState,
-	reducers: {},
+	reducers: {
+		setNotificationError: (state, action: PayloadAction<{ title?: string; text: string }>) => {
+			const { title, text } = action.payload;
+			state.title = title || "Erro";
+			state.text = text;
+			state.isOpen = true;
+			state.type = "error";
+		},
+	},
 });
 
-export const {} = notificationSlice.actions;
+export const { setNotificationError } = notificationSlice.actions;

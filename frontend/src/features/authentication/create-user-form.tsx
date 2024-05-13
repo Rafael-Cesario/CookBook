@@ -7,6 +7,8 @@ import { produce } from "immer";
 import { IUserData } from "./interfaces/user";
 import { UserValidation } from "./helpers/user-validation";
 import { UserRequests } from "./requests/user";
+import { setNotificationError } from "@/context/store/slices/notification";
+import { useDispatch } from "react-redux";
 
 export const CreateUserForm = () => {
 	const userRequests = new UserRequests();
@@ -14,6 +16,7 @@ export const CreateUserForm = () => {
 
 	const [userData, setUserData] = useState({ ...userDefaultValues });
 	const [dataErrors, setDataErrors] = useState({ ...userDefaultValues });
+	const dispatch = useDispatch();
 
 	const createUser = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -24,10 +27,7 @@ export const CreateUserForm = () => {
 		const { email, name, password } = userData;
 		const response = await userRequests.createUser({ user: { email, name, password } });
 
-		// Todo >
-		// Send notification with error message
-		console.log({ error: response.error });
-		if (response.error || !response.data) return;
+		if (response.error || !response.data) return dispatch(setNotificationError({ text: response.error }));
 
 		// Todo >
 		// Clear form

@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import { StyledNotification } from "./styles/notification";
+import { Store } from "@/context/store/store";
 
 export const Notification = () => {
+	// const { isOpen, text, title, type } = useSelector((state: Store) => state.notification);
+
 	return (
 		<StyledNotification>
 			<div className="head">
