@@ -1,15 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export enum TypesNotification {
+	success = "success",
+	error = "error",
+}
+
 interface INotification {
 	isOpen: boolean;
-	type: "success" | "error";
+	type: TypesNotification;
 	title: string;
 	text: string;
 }
 
 const initialState: INotification = {
 	isOpen: false,
-	type: "success",
+	type: TypesNotification.success,
 	title: "",
 	text: "",
 };
@@ -23,7 +28,7 @@ export const notificationSlice = createSlice({
 			state.title = title || "Erro";
 			state.text = text;
 			state.isOpen = true;
-			state.type = "error";
+			state.type = TypesNotification.error;
 		},
 	},
 });

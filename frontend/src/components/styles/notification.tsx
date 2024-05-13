@@ -1,14 +1,17 @@
 "use client";
 
+import { TypesNotification } from "@/context/store/slices/notification";
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
 
-export const StyledNotification = styled.div`
+export const StyledNotification = styled.div<{ type: TypesNotification }>`
+	--color-by-type: ${({ type }) => (type === TypesNotification.success ? theme.success : theme.error)};
+
 	position: absolute;
 	top: 0;
 	right: 0;
 	background-color: ${theme.background};
-	border-left: 8px solid ${theme.error};
+	border-left: 8px solid var(--color-by-type);
 	margin: 1rem;
 	width: 400px;
 	border-radius: ${theme.borderRadius};
@@ -23,7 +26,7 @@ export const StyledNotification = styled.div`
 
 		.title {
 			font-size: 1.1rem;
-			color: ${theme.error};
+			color: var(--color-by-type);
 		}
 	}
 `;

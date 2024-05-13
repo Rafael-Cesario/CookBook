@@ -3,15 +3,17 @@ import { StyledNotification } from "./styles/notification";
 import { Store } from "@/context/store/store";
 
 export const Notification = () => {
-	// const { isOpen, text, title, type } = useSelector((state: Store) => state.notification);
+	const { isOpen, text, title, type } = useSelector((state: Store) => state.notification);
+
+	if (!isOpen) return;
 
 	return (
-		<StyledNotification>
+		<StyledNotification type={type}>
 			<div className="head">
-				<h1 className="title">Algo deu errado</h1>
+				<h1 className="title">{title}</h1>
 				<button className="close">x</button>
 			</div>
-			<p className="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim, harum!</p>
+			<p className="text">{text}</p>
 		</StyledNotification>
 	);
 };
