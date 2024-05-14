@@ -5,6 +5,6 @@ export const theme = {
 
 	borderRadius: "4px",
 
-	success: "#56C42E",
+	success: "#187d13",
 	error: "#B64646",
 };

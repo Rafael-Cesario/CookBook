@@ -7,7 +7,7 @@ import { produce } from "immer";
 import { IUserData } from "./interfaces/user";
 import { UserValidation } from "./helpers/user-validation";
 import { UserRequests } from "./requests/user";
-import { setNotificationError } from "@/context/store/slices/notification";
+import { setNotificationError, setNotificationSuccess } from "@/context/store/slices/notification";
 import { useDispatch } from "react-redux";
 
 export const CreateUserForm = () => {
@@ -30,10 +30,16 @@ export const CreateUserForm = () => {
 		if (response.error || !response.data) return dispatch(setNotificationError({ text: response.error }));
 
 		// Todo >
-		// Clear form
 		// Success notification
 		// set active form to login
 		console.log({ response });
+		setUserData({ ...userDefaultValues });
+		dispatch(
+			setNotificationSuccess({
+				title: "Boas Vindas",
+				text: "Sua conta foi criada com sucesso, você já pode fazer login.",
+			})
+		);
 	};
 
 	const updateValues = (field: keyof IUserData, value: string) => {
