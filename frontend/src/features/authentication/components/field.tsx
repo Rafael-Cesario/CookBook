@@ -11,10 +11,11 @@ interface IField {
 		type: "text" | "password";
 		onChange(value: string): void;
 		error: string;
+		value: string;
 	};
 }
 
-export const Field = ({ props: { field, label, type, onChange, error } }: IField) => {
+export const Field = ({ props: { value, field, label, type, onChange, error } }: IField) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const errorClass = error ? "input-error" : "";
 	const passwordType = showPassword ? "text" : "password";
@@ -30,6 +31,7 @@ export const Field = ({ props: { field, label, type, onChange, error } }: IField
 					onChange={(e) => onChange(e.target.value)}
 					type={type === "password" ? passwordType : "text"}
 					id={field}
+					value={value}
 				/>
 
 				{type === "password" && showPassword && (

@@ -30,10 +30,10 @@ export const CreateUserForm = () => {
 		if (response.error || !response.data) return dispatch(setNotificationError({ text: response.error }));
 
 		// Todo >
-		// Success notification
 		// set active form to login
-		console.log({ response });
+		// Loading
 		setUserData({ ...userDefaultValues });
+
 		dispatch(
 			setNotificationSuccess({
 				title: "Boas Vindas",
@@ -79,6 +79,7 @@ export const CreateUserForm = () => {
 						label: "Email",
 						type: "text",
 						error: dataErrors.email,
+						value: userData.email,
 					}}
 				/>
 
@@ -89,6 +90,7 @@ export const CreateUserForm = () => {
 						label: "Nome",
 						type: "text",
 						error: dataErrors.name,
+						value: userData.name,
 					}}
 				/>
 
@@ -99,6 +101,7 @@ export const CreateUserForm = () => {
 						label: "Senha",
 						type: "password",
 						error: dataErrors.password,
+						value: userData.password,
 					}}
 				/>
 
@@ -109,6 +112,7 @@ export const CreateUserForm = () => {
 						label: "Confirme sua senha",
 						type: "password",
 						error: dataErrors.passwordValidation,
+						value: userData.passwordValidation,
 					}}
 				/>
 
