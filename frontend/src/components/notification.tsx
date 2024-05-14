@@ -7,6 +7,9 @@ export const Notification = () => {
 
 	if (!isOpen) return;
 
+	// Todo > 
+	// Close button dispatch(setNotificationClose())
+
 	return (
 		<StyledNotification type={type}>
 			<div className="head">

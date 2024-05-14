@@ -9,6 +9,7 @@ import { UserValidation } from "./helpers/user-validation";
 import { UserRequests } from "./requests/user";
 import { setNotificationError, setNotificationSuccess } from "@/context/store/slices/notification";
 import { useDispatch } from "react-redux";
+import { LoadingButton } from "@/components/loading-button";
 
 export const CreateUserForm = () => {
 	const userRequests = new UserRequests();
@@ -16,6 +17,8 @@ export const CreateUserForm = () => {
 
 	const [userData, setUserData] = useState({ ...userDefaultValues });
 	const [dataErrors, setDataErrors] = useState({ ...userDefaultValues });
+	const [loading, setLoading] = useState<boolean>(false);
+
 	const dispatch = useDispatch();
 
 	const createUser = async (e: React.FormEvent) => {
@@ -24,14 +27,17 @@ export const CreateUserForm = () => {
 		const { errors, hasErrors } = validateFields();
 		if (hasErrors) return updateErrors(errors);
 
+		setLoading(true);
+
 		const { email, name, password } = userData;
 		const response = await userRequests.createUser({ user: { email, name, password } });
 
-		if (response.error || !response.data) return dispatch(setNotificationError({ text: response.error }));
+		setLoading(false);
+
+		if (response.error) return dispatch(setNotificationError({ text: response.error }));
 
 		// Todo >
 		// set active form to login
-		// Loading
 		setUserData({ ...userDefaultValues });
 
 		dispatch(
@@ -116,7 +122,7 @@ export const CreateUserForm = () => {
 					}}
 				/>
 
-				<button className="submit">Confirmar</button>
+				{loading ? <LoadingButton /> : <button className="submit">Confirmar</button>}
 			</form>
 		</StyledCreateUserForm>
 	);
