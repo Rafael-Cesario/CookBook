@@ -33,12 +33,16 @@ export const notificationSlice = createSlice({
 
 		setNotificationSuccess: (state, action: PayloadAction<{ title?: string; text: string }>) => {
 			const { title, text } = action.payload;
-			state.title = title || "Sucesso"
+			state.title = title || "Sucesso";
 			state.text = text;
 			state.isOpen = true;
 			state.type = TypesNotification.success;
 		},
+
+		setNotificationClose: (state, action) => {
+			state.isOpen = false;
+		},
 	},
 });
 
-export const { setNotificationError, setNotificationSuccess } = notificationSlice.actions;
+export const { setNotificationError, setNotificationSuccess, setNotificationClose } = notificationSlice.actions;

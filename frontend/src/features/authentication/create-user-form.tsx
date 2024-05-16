@@ -36,8 +36,6 @@ export const CreateUserForm = () => {
 
 		if (response.error) return dispatch(setNotificationError({ text: response.error }));
 
-		// Todo >
-		// set active form to login
 		setUserData({ ...userDefaultValues });
 
 		dispatch(
@@ -46,6 +44,9 @@ export const CreateUserForm = () => {
 				text: "Sua conta foi criada com sucesso, você já pode fazer login.",
 			})
 		);
+
+		// Todo >
+		// set active form to login
 	};
 
 	const updateValues = (field: keyof IUserData, value: string) => {
