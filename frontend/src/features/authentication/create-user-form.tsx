@@ -87,6 +87,7 @@ export const CreateUserForm = () => {
 						type: "text",
 						error: dataErrors.email,
 						value: userData.email,
+						focus: true,
 					}}
 				/>
 
