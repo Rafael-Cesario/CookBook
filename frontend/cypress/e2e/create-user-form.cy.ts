@@ -1,0 +1,6 @@
+describe('template spec', () => {
+  it('passes', () => {
+    cy.visit('/')
+    expect(true).to.eq(true)
+  })
+})
