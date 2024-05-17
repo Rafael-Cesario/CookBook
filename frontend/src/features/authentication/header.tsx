@@ -18,7 +18,7 @@ export const Header = ({ props: { activeForm, setActiveForm } }: IHeader) => {
 			</div>
 
 			<div className="open-forms">
-				<button onClick={() => setActiveForm(Forms.create)} className="create">
+				<button data-cy="create-user" onClick={() => setActiveForm(Forms.create)} className="create">
 					Criar uma conta
 				</button>
 

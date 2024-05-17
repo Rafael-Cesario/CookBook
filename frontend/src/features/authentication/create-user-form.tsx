@@ -76,7 +76,9 @@ export const CreateUserForm = () => {
 
 	return (
 		<StyledCreateUserForm>
-			<h1 className="title">Criar uma Conta</h1>
+			<h1 data-cy="create-user-title" className="title">
+				Criar uma Conta
+			</h1>
 
 			<form onSubmit={(e) => createUser(e)}>
 				<Field
