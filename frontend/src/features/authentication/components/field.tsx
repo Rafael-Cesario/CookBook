@@ -22,7 +22,7 @@ export const Field = ({ props: { focus, value, field, label, type, onChange, err
 	const passwordType = showPassword ? "text" : "password";
 
 	return (
-		<StyledField>
+		<StyledField data-cy={`field-${field}`}>
 			<label className="text" htmlFor={`#${field}`}>
 				{label}
 			</label>
@@ -37,12 +37,22 @@ export const Field = ({ props: { focus, value, field, label, type, onChange, err
 				/>
 
 				{type === "password" && showPassword && (
-					<AiFillEye onClick={() => setShowPassword(!showPassword)} className="icon" title="Esconder" />
+					<AiFillEye
+						data-cy="hide-password"
+						onClick={() => setShowPassword(!showPassword)}
+						className="icon"
+						title="Esconder"
+					/>
 				)}
 
 				{type === "password" &&
 					(showPassword || (
-						<AiFillEyeInvisible onClick={() => setShowPassword(!showPassword)} className="icon" title="Mostrar senha" />
+						<AiFillEyeInvisible
+							data-cy="show-password"
+							onClick={() => setShowPassword(!showPassword)}
+							className="icon"
+							title="Mostrar senha"
+						/>
 					))}
 			</div>
 
