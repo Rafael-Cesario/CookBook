@@ -8,6 +8,10 @@ describe("Create User Form", () => {
 		cy.get(`[data-cy="create-user-title"]`).should("exist");
 	});
 
+	it("Has email field focused", () => {
+		cy.get(`[data-cy="field-email"] > div > #email`).should("have.focus")
+	})
+
 	it("Shows and hide password", () => {
 		cy.get(`[data-cy="field-password"] > div > input`).as("password");
 		cy.get("@password").type("MyPassword123&*(");
