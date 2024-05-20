@@ -126,7 +126,13 @@ export const CreateUserForm = () => {
 					}}
 				/>
 
-				{loading ? <LoadingButton /> : <button className="submit">Confirmar</button>}
+				{loading ? (
+					<LoadingButton />
+				) : (
+					<button data-cy="submit-form" className="submit">
+						Confirmar
+					</button>
+				)}
 			</form>
 		</StyledCreateUserForm>
 	);

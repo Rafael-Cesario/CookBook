@@ -11,7 +11,7 @@ interface Props {
 export const AllProviders = ({ children }: Props) => {
 	return (
 		<ReduxProvider store={store}>
-			<StyledComponentsRegistry>{children}</StyledComponentsRegistry>;
+			<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
 		</ReduxProvider>
 	);
 };
