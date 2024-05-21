@@ -2,7 +2,7 @@ import { StyledLoadingButton } from "./styles/loading-button";
 
 export const LoadingButton = () => {
 	return (
-		<StyledLoadingButton>
+		<StyledLoadingButton data-cy="loading-button">
 			<span>-</span>
 			<span>-</span>
 			<span>-</span>

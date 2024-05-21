@@ -1,3 +1,5 @@
+import { RCreateUser } from "@/features/authentication/interfaces/user";
+
 describe("Create User Form", () => {
 	beforeEach(() => {
 		cy.visit("/");
@@ -43,6 +45,19 @@ describe("Create User Form", () => {
 			cy.get(`[data-cy="field-password"] > div > input`).type("pass 123");
 			cy.get(`[data-cy="submit-form"]`).click();
 			cy.get(`[data-cy="field-password"] > .error`).should("have.text", errorMessage);
+		});
+	});
+
+	context("Create user", () => {
+		const user = { email: "user01@email.com", name: "user01", password: "MyPassword123" };
+		const data: RCreateUser = { id: "123", email: user["email"], message: "New user created" };
+		const URL = "http://localhost:8080/api/users";
+
+		beforeEach(() => {
+			cy.get(`[data-cy="field-email"] > div > input`).type(user["email"]);
+			cy.get(`[data-cy="field-name"] > div > input`).type(user["name"]);
+			cy.get(`[data-cy="field-password"] > div > input`).type(user["password"]);
+			cy.get(`[data-cy="field-passwordValidation"] > div > input`).type(user["password"]);
 		});
 	});
 });
